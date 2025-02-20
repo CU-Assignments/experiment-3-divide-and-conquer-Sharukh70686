@@ -1,0 +1,40 @@
+validate binary search tree:
+class Solution {
+  public boolean isValidBST(TreeNode root) {
+    return isValidBST(root, null, null);
+  }
+
+  private boolean isValidBST(TreeNode root, TreeNode minNode, TreeNode maxNode) {
+    if (root == null)
+      return true;
+    if (minNode != null && root.val <= minNode.val)
+      return false;
+    if (maxNode != null && root.val >= maxNode.val)
+      return false;
+
+    return                                      //
+        isValidBST(root.left, minNode, root) && //
+        isValidBST(root.right, root, maxNode);
+  }
+}
+
+
+binary tree inorder traversal:
+class Solution {
+  public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+    Deque<TreeNode> stack = new ArrayDeque<>();
+
+    while (root != null || !stack.isEmpty()) {
+      while (root != null) {
+        stack.push(root);
+        root = root.left;
+      }
+      root = stack.pop();
+      ans.add(root.val);
+      root = root.right;
+    }
+
+    return ans;
+  }
+}
